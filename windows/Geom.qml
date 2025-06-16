@@ -11,6 +11,7 @@ PanelWindow {
 	id: geom
     
 	exclusionMode: ExclusionMode.Ignore
+	exclusiveZone: -1
     WlrLayershell.layer: WlrLayer.Overlay
 
     property variant socket: null
