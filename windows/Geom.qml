@@ -17,6 +17,9 @@ PanelWindow {
 
     color: "transparent"
 
+    focusable: true
+		WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+
     anchors {
         top: true
         left: true
@@ -43,13 +46,33 @@ PanelWindow {
             geomRect.anchor2X = Math.max(geomRect.anchorX, mouse.x)
             geomRect.anchor2Y = Math.max(geomRect.anchorY, mouse.y)
         }
-        onReleased : (mouse) => {
-            geomRect.visible = false
-            socket.write(`${geomRect.anchor1X},${geomRect.anchor1Y} ${geomRect.anchorDx}x${geomRect.anchorDy}\n`)
-            socket.flush()
-            geom.destroy()
-        }
+        // onReleased : (mouse) => {
+        //     geomRect.visible = false
+        //     geom.destroy()
+        // }
     }
+
+    contentItem {
+      focus: true
+      Keys.onPressed: event=> {
+        print(event)
+        let exit = false;
+        if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter || event.key == Qt.Key_Space) {
+          let x = geom.screen.x + geomRect.anchor1X
+          let y = geom.screen.y + geomRect.anchor1Y
+          socket.write(`${geom.screen.name}\n${x},${y} ${geomRect.anchorDx}x${geomRect.anchorDy}`)
+          socket.flush()
+          exit = true
+        }
+
+        if (event.key == Qt.Key_Escape || event.key == Qt.Key_Q || exit) {
+          geomRect.visible = false
+          socket.connected = false
+          geom.destroy()
+        }
+      }
+    }
+
 
     Rectangle {
         id: geomRect
