@@ -90,7 +90,7 @@ ShellRoot {
 	
 	Component.onCompleted: {
 		print(Colors.primary)
-		print(Hyprland.activeWorkspace)
+		// print(Hyprland.activeWorkspace)
 
 		if (Config.autoWorkspaceFontSize) {
 			Config.workspaceFontSize = Config.barHeight

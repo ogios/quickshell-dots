@@ -156,33 +156,33 @@ Singleton {
                 Colors.tertiary_fixed = colors.tertiary_fixed;
                 Colors.tertiary_fixed_dim = colors.tertiary_fixed_dim;
 
-                let colorFileComponent = Qt.createComponent("root:/process/ColorFile.qml");
-                if (colorFileComponent.status === Component.Ready) {
-                    colorFileComponent.createObject(null);
-                } else {
-                    console.log(colorFileComponent.errorString());
-                }
+                // let colorFileComponent = Qt.createComponent("root:/process/ColorFile.qml");
+                // if (colorFileComponent.status === Component.Ready) {
+                //     colorFileComponent.createObject(null);
+                // } else {
+                //     console.log(colorFileComponent.errorString());
+                // }
 
-                let termComponent = Qt.createComponent("root:/process/Term.qml");
-                if (termComponent.status === Component.Ready) {
-                    termComponent.createObject(null);
-                } else {
-                    console.log(termComponent.errorString());
-                }
+                // let termComponent = Qt.createComponent("root:/process/Term.qml");
+                // if (termComponent.status === Component.Ready) {
+                //     termComponent.createObject(null);
+                // } else {
+                //     console.log(termComponent.errorString());
+                // }
 
-                let hyprComponent = Qt.createComponent("root:/process/Hypr.qml");
-                if (hyprComponent.status === Component.Ready) {
-                    hyprComponent.createObject(null);
-                } else {
-                    console.log(hyprComponent.errorString());
-                }
+                // let hyprComponent = Qt.createComponent("root:/process/Hypr.qml");
+                // if (hyprComponent.status === Component.Ready) {
+                //     hyprComponent.createObject(null);
+                // } else {
+                //     console.log(hyprComponent.errorString());
+                // }
 
-                let starshipComponent = Qt.createComponent("root:/process/Starship.qml");
-                if (starshipComponent.status === Component.Ready) {
-                    starshipComponent.createObject(null);
-                } else {
-                    console.log(starshipComponent.errorString());
-                }
+                // let starshipComponent = Qt.createComponent("root:/process/Starship.qml");
+                // if (starshipComponent.status === Component.Ready) {
+                //     starshipComponent.createObject(null);
+                // } else {
+                //     console.log(starshipComponent.errorString());
+                // }
 			}
 		}
 	}
