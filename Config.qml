@@ -25,10 +25,10 @@ Singleton {
 
     // clock
 
-    readonly property bool clockFixedWidth : false
+    readonly property bool clockFixedWidth : true
     readonly property bool clockShowSeconds : true
-    readonly property bool clockNoBackgroundForZero : true
-    readonly property bool clock24Hour : false
+    readonly property bool clockNoBackgroundForZero : false
+    readonly property bool clock24Hour : true
 
     readonly property int clockTextShadowWidth : 0
     readonly property int clockBoxShadowWidth : 0
@@ -43,6 +43,7 @@ Singleton {
 
     property int workspaceBottomMargin : 10
 
-    readonly property url wallpaperImage : "root:/assets/hill.mp4"
+    // readonly property url wallpaperImage : "root:/assets/hill.mp4"
+    readonly property url wallpaperImage : "/home/ogios/Pictures/wallpaper/chill/Biryulyovo_Zapadnoye_District.webp"
     readonly property bool darkMode : true
 }

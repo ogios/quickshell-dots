@@ -12,99 +12,126 @@ import "root:/components" as Components
 
 import "root:/components/bar" as Bar
 
-PanelWindow {
-	id: bar
 
-    width: Config.barWidth
-    height: Config.barHeight
+Variants {
+  model: Quickshell.screens;
 
-    color: "transparent"
+  PanelWindow {
+    id: bar
 
-    WlrLayershell.layer: WlrLayer.Top
+      property var modelData
+      screen: modelData
 
-    property alias leftItems: container_left.data;
-    // default property alias centerItems: container_center.data;
-    property alias rightItems: container_right.data;
+      implicitWidth: Config.barWidth
+      implicitHeight: Config.barHeight
 
-    Component.onCompleted: {
-        Config.barVerticalCenter = bar.verticalCenter
-    }
+      color: "transparent"
 
-    anchors {
-        left: true
-        right: true
-        top: true
-        // bottom: true
-    }	
+      WlrLayershell.layer: WlrLayer.Bottom
+      exclusionMode: ExclusionMode.Ignore
+      exclusiveZone: 0
 
-    Rectangle {
-            // color: "black"
-            id: container_left_rect
-            height: parent.height
 
-            color: "transparent"
-            // border.color: "red"
-            // border.width: 5
+      // property alias leftItems: container_left.data;
+      // default property alias centerItems: container_center.data;
+      // property alias rightItems: container_right.data;
 
-            anchors {
-                left: parent.left
-                right: container_center_rect.left
-                verticalCenter: parent.verticalCenter
-            }
+      Component.onCompleted: {
+          Config.barVerticalCenter = bar.verticalCenter
+      }
 
-            Row {
-                id: container_left
-                spacing: 10
+      anchors {
+          left: true
+          right: true
+          // top: true
+          bottom: true
+      }	
 
-                anchors.left: parent.left
-                anchors.leftMargin: 20
-                anchors.verticalCenter: parent.verticalCenter
-            }
-        }
+      margins {
+          left: 100
+          right: 100
+          top: 0
+          bottom: 30
+      }
 
-        Rectangle {
-            color: "transparent"
-            id: container_center_rect
+      Rectangle {
+              // color: "black"
+              id: container_left_rect
+              height: parent.height
 
-            height: parent.height
+              color: "transparent"
+              // border.color: "red"
+              // border.width: 5
 
-            anchors {
-                fill: parent
-                leftMargin: container_left.implicitWidth
-                rightMargin: container_right.implicitWidth + Config.clockSeperatorWidth*4
-            }
+              anchors {
+                  left: parent.left
+                  right: container_center_rect.left
+                  verticalCenter: parent.verticalCenter
+              }
 
-            Components.Separator {
+              Row {
+                  id: container_left
+                  spacing: 10
 
-            }
+                  data: [
+                      // Bar.Workspace {},
+                      Components.FastMusicLine {}
+                  ]
 
-            // color: "transparent"
-            // border.color: "green"
-            // border.width: 5
-        }
+                  anchors.left: parent.left
+                  anchors.leftMargin: 30
+                  anchors.verticalCenter: parent.verticalCenter
+              }
+          }
 
-        Rectangle {
-            id: container_right_rect
-            height: parent.height
+          Rectangle {
+              color: "transparent"
+              id: container_center_rect
 
-            color: "transparent"
-            // border.color: "yellow"
-            // border.width: 5
+              height: parent.height
 
-            anchors {
-                left: container_center_rect.right
-                right: parent.right
-                verticalCenter: parent.verticalCenter
-            }
+              anchors {
+                  fill: parent
+                  leftMargin: container_left.implicitWidth
+                  rightMargin: container_right.implicitWidth + Config.clockSeperatorWidth*4
+              }
 
-            Row {
-                id: container_right
-                spacing: 10
+              Components.Separator {
 
-                anchors.right: parent.right
-                anchors.rightMargin: 20
-                anchors.verticalCenter: parent.verticalCenter
-            }
-        }
+              }
 
+              // color: "transparent"
+              // border.color: "green"
+              // border.width: 5
+          }
+
+          Rectangle {
+              id: container_right_rect
+              height: parent.height
+
+              color: "transparent"
+              // border.color: "yellow"
+              // border.width: 5
+
+              anchors {
+                  left: container_center_rect.right
+                  right: parent.right
+                  verticalCenter: parent.verticalCenter
+              }
+
+              Row {
+                  id: container_right
+                  spacing: 10
+
+                  data: [
+                    Bar.Clock {}
+                  ]
+
+                  anchors.right: parent.right
+                  anchors.rightMargin: 20
+                  anchors.verticalCenter: parent.verticalCenter
+              }
+          }
+
+  }
 }

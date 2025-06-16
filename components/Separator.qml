@@ -39,7 +39,7 @@ Rectangle {
             strokeColor: Colors.primary
             fillColor: "transparent"
             strokeWidth: 6
-            startX: 0; startY: parent.height/2
+            startX: 30; startY: parent.height/2
             // pathHints: ShapePath.PathQuadratic
  
             PathLine {
@@ -55,7 +55,7 @@ Rectangle {
             // pathHints: ShapePath.PathQuadratic
  
             PathAngleArc {
-                centerX: 0; centerY: parent.height/2
+                centerX: 30; centerY: parent.height/2
                 radiusX: 6; radiusY: 6
                 startAngle: 0
                 sweepAngle: 360

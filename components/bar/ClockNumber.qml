@@ -16,12 +16,12 @@ Canvas {
     property int textX: 0
     property int textWidth: 10
 
-    property bool fixedWidth: false
+    property bool fixedWidth: true
 
     property color bgColor: "red"
     property color boxShadow: "red"
     property int textShadowWidth: 2
-    property bool noBackgroundForZero: false
+    property bool noBackgroundForZero: true
 
     Component.onCompleted: {
         toNum = 0;
@@ -56,10 +56,9 @@ Canvas {
     }
 
     onPaint: {
-        var now = new Date();
         var ctx = getContext("2d");
         ctx.reset();
-        ctx.font = `bold ${Config.workspaceFontSize/2}px Cantarell`;
+        ctx.font = `900 ${Config.workspaceFontSize/2}px "Noto Sans Bengali UI"`;
         for (let i = 0; i < 10; i++) {
 
             if (fixedWidth) {

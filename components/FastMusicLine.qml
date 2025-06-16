@@ -16,7 +16,7 @@ Rectangle {
     color: "transparent"
 
     property int segments: 10;
-    property int curveWidth: Config.barWidth/10;
+    property int curveWidth: Config.barWidth/5;
     property int curveHeight: Config.barHeight/2;
     property double curveSpill: 1.5;
 
