@@ -8,6 +8,8 @@ import Qt5Compat.GraphicalEffects
 
 import "root:/"
 
+import "qrc:/"
+
 Rectangle {
     width: clock.width
     height: Config.barHeight
@@ -21,12 +23,12 @@ Rectangle {
         source: clock
     }
 
-    property int hour1 : 0
-    property int hour2 : 0
-    property int minute1 : 0
-    property int minute2 : 0
-    property int second1 : 0
-    property int second2 : 0
+    property int hour1: 0
+    property int hour2: 0
+    property int minute1: 0
+    property int minute2: 0
+    property int second1: 0
+    property int second2: 0
 
     // RectangularGlow {
     //     id: glow
@@ -66,7 +68,7 @@ Rectangle {
                     hour1 = hours / 10;
                     hour2 = hours % 10;
                 }
-                
+
                 minute1 = now.getMinutes() / 10;
                 minute2 = now.getMinutes() % 10;
                 second1 = now.getSeconds() / 10;
@@ -145,7 +147,5 @@ Rectangle {
             textShadowWidth: Config.clockTextShadowWidth
             noBackgroundForZero: Config.clockNoBackgroundForZero
         }
-
-
     }
 }
