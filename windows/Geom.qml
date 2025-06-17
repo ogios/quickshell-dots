@@ -1,17 +1,15 @@
 import QtQuick
 import Quickshell
-import Quickshell.Io
 import Quickshell.Wayland
-import Quickshell.Hyprland
 
 import "root:/components" as Components
 import "root:/"
 
 PanelWindow {
-	id: geom
-    
-	exclusionMode: ExclusionMode.Ignore
-	exclusiveZone: -1
+    id: geom
+
+    exclusionMode: ExclusionMode.Ignore
+    exclusiveZone: -1
     WlrLayershell.layer: WlrLayer.Overlay
 
     property variant socket: null
@@ -19,7 +17,7 @@ PanelWindow {
     color: "transparent"
 
     focusable: true
-		WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
     anchors {
         top: true
@@ -30,22 +28,22 @@ PanelWindow {
 
     MouseArea {
         anchors.fill: parent
-        onPressed : (mouse) => {
-            geomRect.visible = true
-            geomRect.anchorX = mouse.x
-            geomRect.anchorY = mouse.y
+        onPressed: mouse => {
+            geomRect.visible = true;
+            geomRect.anchorX = mouse.x;
+            geomRect.anchorY = mouse.y;
 
-            geomRect.anchor1X = mouse.x
-            geomRect.anchor1Y = mouse.y
-            geomRect.anchor2X = mouse.x
-            geomRect.anchor2Y = mouse.y
+            geomRect.anchor1X = mouse.x;
+            geomRect.anchor1Y = mouse.y;
+            geomRect.anchor2X = mouse.x;
+            geomRect.anchor2Y = mouse.y;
         }
-        onPositionChanged : (mouse) => {
-            geomRect.anchor1X = Math.min(geomRect.anchorX, mouse.x)
-            geomRect.anchor1Y = Math.min(geomRect.anchorY, mouse.y)
+        onPositionChanged: mouse => {
+            geomRect.anchor1X = Math.min(geomRect.anchorX, mouse.x);
+            geomRect.anchor1Y = Math.min(geomRect.anchorY, mouse.y);
 
-            geomRect.anchor2X = Math.max(geomRect.anchorX, mouse.x)
-            geomRect.anchor2Y = Math.max(geomRect.anchorY, mouse.y)
+            geomRect.anchor2X = Math.max(geomRect.anchorX, mouse.x);
+            geomRect.anchor2Y = Math.max(geomRect.anchorY, mouse.y);
         }
         // onReleased : (mouse) => {
         //     geomRect.visible = false
@@ -54,26 +52,25 @@ PanelWindow {
     }
 
     contentItem {
-      focus: true
-      Keys.onPressed: event=> {
-        print(event)
-        let exit = false;
-        if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter || event.key == Qt.Key_Space) {
-          let x = geom.screen.x + geomRect.anchor1X
-          let y = geom.screen.y + geomRect.anchor1Y
-          socket.write(`${geom.screen.name}\n${x},${y} ${geomRect.anchorDx}x${geomRect.anchorDy}`)
-          socket.flush()
-          exit = true
-        }
+        focus: true
+        Keys.onPressed: event => {
+            print(event);
+            let exit = false;
+            if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter || event.key == Qt.Key_Space) {
+                let x = geom.screen.x + geomRect.anchor1X;
+                let y = geom.screen.y + geomRect.anchor1Y;
+                socket.write(`${geom.screen.name}\n${x},${y} ${geomRect.anchorDx}x${geomRect.anchorDy}`);
+                socket.flush();
+                exit = true;
+            }
 
-        if (event.key == Qt.Key_Escape || event.key == Qt.Key_Q || exit) {
-          geomRect.visible = false
-          socket.connected = false
-          geom.destroy()
+            if (event.key == Qt.Key_Escape || event.key == Qt.Key_Q || exit) {
+                geomRect.visible = false;
+                socket.connected = false;
+                geom.destroy();
+            }
         }
-      }
     }
-
 
     Rectangle {
         id: geomRect
@@ -84,11 +81,10 @@ PanelWindow {
         property int anchorX: 0
         property int anchorY: 0
 
-        property int anchor1X: parent.width/2
-        property int anchor1Y: parent.height/2
-        property int anchor2X: parent.width/2
-        property int anchor2Y: parent.height/2
-
+        property int anchor1X: parent.width / 2
+        property int anchor1Y: parent.height / 2
+        property int anchor2X: parent.width / 2
+        property int anchor2Y: parent.height / 2
 
         property int anchorDx: anchor2X - anchor1X
         property int anchorDy: anchor2Y - anchor1Y
@@ -96,99 +92,96 @@ PanelWindow {
         property int borderWidth: 6
 
         onAnchor1XChanged: {
-            canvas.requestPaint()
+            canvas.requestPaint();
         }
 
         onAnchor1YChanged: {
-            canvas.requestPaint()
+            canvas.requestPaint();
         }
 
         onAnchor2XChanged: {
-            canvas.requestPaint()
+            canvas.requestPaint();
         }
 
         onAnchor2YChanged: {
-            canvas.requestPaint()
+            canvas.requestPaint();
         }
-
 
         Canvas {
             id: canvas
             anchors.fill: parent
 
             onPaint: {
-                var ctx = getContext("2d")
-                ctx.reset()
-                ctx.fillStyle = Colors.surface
-                ctx.globalAlpha = 0.8
-                //bg 
-                ctx.fillRect(0, 0, parent.width, parent.height)
-                ctx.globalAlpha = 1
-                ctx.fillStyle = Colors.primary
-                ctx.fillRect(geomRect.anchor1X-geomRect.borderWidth, geomRect.anchor1Y-geomRect.borderWidth, geomRect.anchorDx+geomRect.borderWidth*2 , geomRect.anchorDy+geomRect.borderWidth*2)
+                var ctx = getContext("2d");
+                ctx.reset();
+                ctx.fillStyle = Colors.surface;
+                ctx.globalAlpha = 0.8;
+                //bg
+                ctx.fillRect(0, 0, parent.width, parent.height);
+                ctx.globalAlpha = 1;
+                ctx.fillStyle = Colors.primary;
+                ctx.fillRect(geomRect.anchor1X - geomRect.borderWidth, geomRect.anchor1Y - geomRect.borderWidth, geomRect.anchorDx + geomRect.borderWidth * 2, geomRect.anchorDy + geomRect.borderWidth * 2);
 
                 //corner circles
-                ctx.beginPath()
-                ctx.arc(geomRect.anchor1X, geomRect.anchor1Y, geomRect.borderWidth*4, 0, 2 * Math.PI)
-                ctx.fill()
+                ctx.beginPath();
+                ctx.arc(geomRect.anchor1X, geomRect.anchor1Y, geomRect.borderWidth * 4, 0, 2 * Math.PI);
+                ctx.fill();
 
-                ctx.beginPath()
-                ctx.arc(geomRect.anchor2X, geomRect.anchor1Y, geomRect.borderWidth*4, 0, 2 * Math.PI)
-                ctx.fill()
+                ctx.beginPath();
+                ctx.arc(geomRect.anchor2X, geomRect.anchor1Y, geomRect.borderWidth * 4, 0, 2 * Math.PI);
+                ctx.fill();
 
-                ctx.beginPath()
-                ctx.arc(geomRect.anchor1X, geomRect.anchor2Y, geomRect.borderWidth*4, 0, 2 * Math.PI)
-                ctx.fill()
+                ctx.beginPath();
+                ctx.arc(geomRect.anchor1X, geomRect.anchor2Y, geomRect.borderWidth * 4, 0, 2 * Math.PI);
+                ctx.fill();
 
-                ctx.beginPath()
-                ctx.arc(geomRect.anchor2X, geomRect.anchor2Y, geomRect.borderWidth*4, 0, 2 * Math.PI)
-                ctx.fill()
+                ctx.beginPath();
+                ctx.arc(geomRect.anchor2X, geomRect.anchor2Y, geomRect.borderWidth * 4, 0, 2 * Math.PI);
+                ctx.fill();
 
                 //rect
-                ctx.clearRect(geomRect.anchor1X, geomRect.anchor1Y, geomRect.anchorDx , geomRect.anchorDy)
+                ctx.clearRect(geomRect.anchor1X, geomRect.anchor1Y, geomRect.anchorDx, geomRect.anchorDy);
             }
         }
 
         Rope {
-        anchors.fill: parent
-        color: "transparent"
-        anchorX: 0
-        anchorY: 0
+            anchors.fill: parent
+            color: "transparent"
+            anchorX: 0
+            anchorY: 0
 
-        pullX: geomRect.anchor1X
-        pullY: geomRect.anchor1Y
+            pullX: geomRect.anchor1X
+            pullY: geomRect.anchor1Y
+        }
+
+        Rope {
+            anchors.fill: parent
+            color: "transparent"
+            anchorX: parent.width
+            anchorY: 0
+
+            pullX: geomRect.anchor2X
+            pullY: geomRect.anchor1Y
+        }
+
+        Rope {
+            anchors.fill: parent
+            color: "transparent"
+            anchorX: 0
+            anchorY: parent.height
+
+            pullX: geomRect.anchor1X
+            pullY: geomRect.anchor2Y
+        }
+
+        Rope {
+            anchors.fill: parent
+            color: "transparent"
+            anchorX: parent.width
+            anchorY: parent.height
+
+            pullX: geomRect.anchor2X
+            pullY: geomRect.anchor2Y
+        }
     }
-
-    Rope {
-        anchors.fill: parent
-        color: "transparent"
-        anchorX: parent.width
-        anchorY: 0
-
-        pullX: geomRect.anchor2X
-        pullY: geomRect.anchor1Y
-    }
-
-    Rope {
-        anchors.fill: parent
-        color: "transparent"
-        anchorX: 0
-        anchorY: parent.height
-
-        pullX: geomRect.anchor1X
-        pullY: geomRect.anchor2Y
-    }
-
-    Rope {
-        anchors.fill: parent
-        color: "transparent"
-        anchorX: parent.width
-        anchorY: parent.height
-
-        pullX: geomRect.anchor2X
-        pullY: geomRect.anchor2Y
-    }
-    }
-
-    
 }

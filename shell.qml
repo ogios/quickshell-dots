@@ -4,12 +4,12 @@ import Quickshell.Io
 
 import "root:/"
 
-import "windows"
+import "windows" as Windows
 
 ShellRoot {
     id: root
 
-    Bar {}
+    Windows.Bar {}
 
     SocketServer {
         id: socket
