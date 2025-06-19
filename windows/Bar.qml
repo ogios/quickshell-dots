@@ -49,7 +49,7 @@ Variants {
             left: 100
             right: 100
             top: 0
-            bottom: 30
+            bottom: 10
         }
 
         Rectangle {

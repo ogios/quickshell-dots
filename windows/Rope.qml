@@ -86,14 +86,14 @@ Rectangle {
         }
 
         Timer {
-            interval: 1000 / 60
+            interval: 1000 / 240
             running: true
             repeat: true
 
             onTriggered: {
                 for (var i = ropeRect.segments; i > 0; i--) {
                     var point = dotPath.pathElements[i];
-                    var line = pathCurves.pathElements[i - 1];
+                    // var line = pathCurves.pathElements[i - 1];
 
                     var prev = dotPath.pathElements[i - 1];
 
@@ -142,6 +142,13 @@ Rectangle {
 
                     point.centerX += point.vx;
                     point.centerY += point.vy;
+
+                    // let frame_step = 1 / 144;
+                    // point.vx = point.vx * 0.74 + vx * frame_step;
+                    // point.vy = point.vy * 0.74 + vy * frame_step;
+                    //
+                    // point.centerX += point.vx * frame_step;
+                    // point.centerY += point.vy * frame_step;
                 }
                 // print()
             }
